@@ -19,28 +19,47 @@ namespace ToDo
         public DateTime Created_at { get; set; }
         public int List_id { get; set; }
 
-        public static string ValidateUser(string username, string password)
+        public static object ValidateUser(string username, string password)
         {
             using (SqlConnection conn = new SqlConnection(DBHelper.CONN_STRING)) {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("SELECT UserName,Pass FROM Users WHERE UserName = @UserName and Pass = @pass ");
-                sb.Append("SELECT title FROM taskes left join lists on lists.list_id = taskes.list_id inner join Users on lists.user_id = Users.users_id where Users.UserName = @UserName ");
                 using (SqlCommand command = new SqlCommand(sb.ToString(), conn)) {
                     command.Parameters.AddWithValue("@UserName", username);
                     command.Parameters.AddWithValue("@Pass", password);
                     conn.Open();
                     using (SqlDataReader dr = command.ExecuteReader()) {
                         if (dr.Read()) {
-                            //if datareader = true retern titles/tasks fo the users...
-                            for (int i=0; i <= 100; i++){
-                                 "test";
-                            }
+                            //need to check if we get the user name.
+                            return dr.GetString(0);
                         }
+
+
                     }
                 }
-                return "something went wrong please try again later";
             }
-
+            return -1;
         }
+        //need to check this function...
+        public static string GetTasks(string username)
+        {
+            using (SqlConnection conn = new SqlConnection(DBHelper.CONN_STRING)) {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT title FROM taskes left join lists on lists.list_id = taskes.list_id inner join Users on lists.user_id = Users.users_id where Users.UserName = @UserName ");
+                using (SqlCommand command = new SqlCommand(sb.ToString(), conn)) {
+                    command.Parameters.AddWithValue("@UserName", username);
+                    conn.Open();
+                    using (SqlDataReader dr = command.ExecuteReader()) {
+                        if (dr.Read()) {
+                            for (int i = 0; i < 100; i++) {
+                                string task = dr.GetString(i);
+                                return task;
+                            }
+                        }return "somethig went wrong please try again later..";
+                    }
+                }
+            }
+        }
+
     }
 }

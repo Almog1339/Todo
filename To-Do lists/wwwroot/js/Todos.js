@@ -3,22 +3,30 @@
 
 $("#loginsub").click(function () {
 
-    var url = "/api/Login";
+    var purl = "/api/Login";
+    var gurl = "/api/GetTasks";
 
     var usersData = {
         UserName: $('#username').val(),
         Pass: $('#password').val()
     };
 
-    $.post(url, usersData).done(
+    $.post(purl, usersData).done(
         $('#login').fadeOut(),
         $('#Signup').fadeOut(),
         $('#container').show(500),
-        $('#tasks').append(
-            "<li><span><i class='far fa-trash-alt'></i></span>"+tasks +"</li>"
-        )
+        function () {
+            // dose not append...
+            $('#navUsername').append('tesfdsjklfdjkljgkldsjfdsfdsfret54wrwegjklfkdlsfjdslfjds');
+        });
+    //// need to check this get function.....
+    $.get(gurl, usersData.UserName).done(
+        function () {
+            for (var i = 0; i < 100; i++) {
+                $('#tasks').append(data);
+            };
+        },
     );
-
 });
 
 $("ul").on("click", "li", function () {

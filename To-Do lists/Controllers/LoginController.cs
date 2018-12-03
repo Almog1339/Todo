@@ -10,12 +10,24 @@ namespace ToDo.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        //api/GetTasks
+        [HttpGet]
+        public static string GetTasks([FromBody]Users usersData)
+        {
+            if (string.IsNullOrEmpty(usersData.UserName)) {
+                return "you are missing username";
+            }
+            else {
+                return Users.GetTasks(usersData.UserName);
+            }
+        }
+
         // POST api/Login
         [HttpPost]
-        public string Login([FromForm]Users usersData)
+        public object Login([FromForm]Users usersData)
         {
             if (string.IsNullOrEmpty(usersData.UserName) || string.IsNullOrEmpty(usersData.Pass)) {
-                return "worng";
+                return "You are missing something....";
             }
             else {
                 return Users.ValidateUser(usersData.UserName,usersData.Pass) ;
