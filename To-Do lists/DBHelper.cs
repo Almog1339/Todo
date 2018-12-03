@@ -8,7 +8,7 @@ namespace ToDo
 {
     public class DBHelper
     {
-        public static string CONN_STRING;
+        public static string CONN_STRING = "Data Source=DESKTOP-O8IU0PQ\\sqlexpress;Initial Catalog=Todo;User ID=sa;Password=Q1w2q1w2";
     }
     public static class Extensions
     {

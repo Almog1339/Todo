@@ -1,18 +1,23 @@
 /// <reference path="jquery-3.3.1.js" />
 
-var $tasks = $("#tasks");
-var $fname = $('#fname');
-var $lname = $('#Lname');
-var $gender = $('#gender');
-var $birthDate = $('#birthDate');
 
 $("#loginsub").click(function () {
 
-    var url = "api/Login";
-    var username = $('#username').val();
-    var password = $('#password').val();
+    var url = "/api/Login";
 
-    $.get("api/login").done(console.log(JSON.stringify(Response)));
+    var usersData = {
+        UserName: $('#username').val(),
+        Pass: $('#password').val()
+    };
+
+    $.post(url, usersData).done(
+        $('#login').fadeOut(),
+        $('#Signup').fadeOut(),
+        $('#container').show(500),
+        $('#tasks').append(
+            "<li><span><i class='far fa-trash-alt'></i></span>"+tasks +"</li>"
+        )
+    );
 
 });
 

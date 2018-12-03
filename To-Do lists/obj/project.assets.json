@@ -12224,11 +12224,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\almog\\Desktop\\To-Do lists\\To-Do lists\\ToDo.csproj",
+      "projectUniqueName": "C:\\Users\\almog\\Documents\\GitHub\\Todo\\To-Do lists\\ToDo.csproj",
       "projectName": "ToDo",
-      "projectPath": "C:\\Users\\almog\\Desktop\\To-Do lists\\To-Do lists\\ToDo.csproj",
+      "projectPath": "C:\\Users\\almog\\Documents\\GitHub\\Todo\\To-Do lists\\ToDo.csproj",
       "packagesPath": "C:\\Users\\almog\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\almog\\Desktop\\To-Do lists\\To-Do lists\\obj\\",
+      "outputPath": "C:\\Users\\almog\\Documents\\GitHub\\Todo\\To-Do lists\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
