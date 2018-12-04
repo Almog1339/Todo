@@ -30,18 +30,14 @@ namespace ToDo
                     conn.Open();
                     using (SqlDataReader dr = command.ExecuteReader()) {
                         if (dr.Read()) {
-                            //need to check if we get the user name.
                             return dr.GetString(0);
                         }
-
-
                     }
                 }
             }
             return -1;
         }
-        //need to check this function...
-        public static string GetTasks(string username)
+        public static object GetTasks(string username)
         {
             using (SqlConnection conn = new SqlConnection(DBHelper.CONN_STRING)) {
                 StringBuilder sb = new StringBuilder();
@@ -55,10 +51,10 @@ namespace ToDo
                                 string task = dr.GetString(i);
                                 return task;
                             }
-                        }return "somethig went wrong please try again later..";
+                        }
                     }
                 }
-            }
+            }return -1;
         }
 
     }
