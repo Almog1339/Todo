@@ -13,21 +13,29 @@ $("#loginsub").click(function () {
     $.post(url, usersData).done(
         $('#login').fadeOut(),
         function (data) {
+            setTimeout(3000);
             if (data === -1) {
                 $('#Signup').show();
             } else {
                 $.get(url, usersData).done(
                     function () {
-                        for (var i = 0; i < 100; i++) {
-                            $('#tasks').append("<li><span><i class='far fa - trash - alt'></i></span>" + tasks + "</li>");
+                        if (data === -1) {
+                            alert("We have some issue bringing your data....Please try again later.");
+                        } else {
+                            for (var i = 0; i < 100; i++) {
+                                $('#tasks').append("<li><span><i class='far fa - trash - alt'></i></span>" + tasks + "</li>");
+                            }
                         }
                     });
                 $('#Signup').fadeOut(),
-                    $('#nav').append(usersData.UserName),
-                    $('#container').show(500)
+                $('#login').fadeOut(),
+                    $('#nav').append(" " + usersData.UserName),
+                    $('#container').show(500);
             };
         });
 });
+
+
 $("ul").on("click", "li", function () {
     $(this).toggleClass("completed");
 });

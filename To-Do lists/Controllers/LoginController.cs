@@ -13,7 +13,12 @@ namespace ToDo.Controllers
         [HttpGet]
         public object Get([FromForm]Users usersData)
         {
-            return Users.GetTasks(usersData.UserName);
+            if (string.IsNullOrEmpty(usersData.UserName)){
+                return -1;
+            }
+            else {
+                return Users.GetTasks(usersData.UserName);
+            }
         }
 
         [HttpPost]
