@@ -13,19 +13,21 @@ namespace ToDo
         public string UserName { get; set; }
         public string Pass { get; set; }
         public string FirstName { get; set; }
+
+
         public string LastName { get; set; }
         public char Gender { get; set; }
         public DateTime Date_of_birth { get; set; }
         public DateTime Created_at { get; set; }
         public int List_id { get; set; }
 
-        public static object ValidateUser(string username, string password)
+        public static object ValidateUser(string UserName, string password)
         {
             using (SqlConnection conn = new SqlConnection(DBHelper.CONN_STRING)) {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("SELECT UserName,Pass FROM Users WHERE UserName = @UserName and Pass = @pass ");
                 using (SqlCommand command = new SqlCommand(sb.ToString(), conn)) {
-                    command.Parameters.AddWithValue("@UserName", username);
+                    command.Parameters.AddWithValue("@UserName", UserName);
                     command.Parameters.AddWithValue("@Pass", password);
                     conn.Open();
                     using (SqlDataReader dr = command.ExecuteReader()) {
@@ -37,13 +39,13 @@ namespace ToDo
             }
             return -1;
         }
-        public static object GetTasks(string username)
+        public static object GetTasks(string UserName)
         {
             using (SqlConnection conn = new SqlConnection(DBHelper.CONN_STRING)) {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("SELECT title FROM taskes left join lists on lists.list_id = taskes.list_id inner join Users on lists.user_id = Users.users_id where Users.UserName = @UserName ");
                 using (SqlCommand command = new SqlCommand(sb.ToString(), conn)) {
-                    command.Parameters.AddWithValue("@UserName", username);
+                    command.Parameters.AddWithValue("@UserName", UserName);
                     conn.Open();
                     using (SqlDataReader dr = command.ExecuteReader()) {
                         if (dr.Read()) {
