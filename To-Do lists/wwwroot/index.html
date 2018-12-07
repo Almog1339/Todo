@@ -6,39 +6,71 @@
     </title>
     <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="css/Todos.css">
     <script src="js/jquery-3.3.1.js"></script>
 </head>
 <body>
-    <div id="login" style="display:block">
-        <input type="text" name="username" id="username" placeholder="Username"/>
+    <div id="login" style="display: block">
+        <input type="text" name="username" id="username" placeholder="Username" />
         <input type="password" name="password" id="password" placeholder="Password" />
         <button type="submit" id="loginsub">Login</button>
         <button type="button">Register</button>
 
     </div>
-    <div id="Signup" style="display:none">
-        <input type="text" id="UserName" placeholder="UserName" />
-        <input type="password" id="signPass" placeholder="password" />
-        <input type="text" id="Fname" placeholder="First Name" />
-        <input type="text" id="Lname" placeholder="Last Name" />
-        <select id="Gender">
-            <option>Male</option>
-            <option>Female</option>
-            <option>Dont want to share</option>
-        </select>
-        <input type="date" id='birthDate' placeholder="BirthDate" />
-        <button type="submit" id="submitbtn">Submit</button>
-        <button type="button">Login</button>
+    <div id="Signup" style="display: none">
+        <form id="Register">
+            <input type="text" id="UserName" name="username" placeholder="UserName" />
+            <input type="password" id="signPass" name="pass" placeholder="password" /> <input type="password" id="confirmpassword" name="confirmpass" placeholder="Confirm your password" />
+            <input type="text" id="Fname" name="Fname" placeholder="First Name" />
+            <input type="text" id="Lname" name="Lname" placeholder="Last Name" />
+            <select id="Gender">
+                <option>Please select your gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Dont want to share this information</option>
+            </select>
+            <input type="date" id='birthDate' name="birthDate" />
+            <button type="submit" id="submitbtn">Submit</button>
+            <button type="button">Login</button>
+        </form>
     </div>
     <div id='container' style="display:none">
         <div id="nav">Welcome:</div>
         <h1>To-Do List<i class="fas fa-pen-fancy"></i></h1>
         <input type="text" placeholder="Add new ToDo">
         <ul id="tasks">
+
         </ul>
     </div>
-    <div id="error" style="display:none">We have run into some issues Please try again later..... </div>
     <script src="js/Todos.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#Register").validate({
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 5
+                    }, pass: {
+                        required: true,
+                        minlength: 5
+                    }, confirmpass: {
+                        required: true,
+                        equalTo: "pass"
+                    }, Fname: {
+                        required: true,
+                        minlength: 5
+                    }, Lname: {
+                        required: true,
+                        minlength: 5
+                    }, birthDate: {
+                        required: true
+                    }
+                }
+            });
+        });
+
+    </script>
 </body>
 </html>
