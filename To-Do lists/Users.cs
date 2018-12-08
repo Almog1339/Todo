@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -37,23 +38,28 @@ namespace ToDo
         public static object Ticket(string UserName)
         {
             using (SqlConnection conn = new SqlConnection(DBHelper.CONN_STRING)) {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("SELECT title FROM tasks left join lists on lists.list_id = tasks.list_id inner join Users on lists.user_id = Users.users_id where Users.UserName = @UserName");
-                using (SqlCommand command = new SqlCommand(sb.ToString(), conn)) {
-                    command.Parameters.AddWithValue("@UserName", UserName);
-                    conn.Open();
-                    using (SqlDataReader dr = command.ExecuteReader()) {
-                        while (dr.Read())
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("spGetAllTasksForUser", conn)) {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@UserName", SqlDbType.VarChar).Value = UserName;
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
                         {
-                            
+                            string task = "";
+                            for (int i = 0; i < 100; i++) {
+                                task = dr.GetString(i);
+                            }
+
+                            return task;
                         }
+
+                        return null;
                     }
                 }
-                return null;
             }
         }
 
-        
 
         internal static bool Register(string userName, string pass, string fName, string lName, char gender, DateTime date_of_birth)
         {
