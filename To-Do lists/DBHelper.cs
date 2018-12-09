@@ -68,7 +68,7 @@ namespace ToDo
             {
                 conn.Open();
                 
-                using (SqlCommand cmd = new SqlCommand("insert into Tasks (title,status,user_id) values ('@title',0,@user_id)", conn))
+                using (SqlCommand cmd = new SqlCommand("insert into Tasks (title,status,user_id) values (@title,1,@user_id)", conn))
                 {
                     cmd.Parameters.AddWithValue("@title", TodoText);
                     cmd.Parameters.AddWithValue("@user_id", GetUserId(UserName));
@@ -85,7 +85,12 @@ namespace ToDo
                     cmd.Parameters.AddWithValue("@UserName", UserName);
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        return dr.GetInt32(0);
+                        if (dr.Read())
+                        {
+                            return dr.GetInt32(0);
+                        }
+
+                        return -1;
                     }
 
                 }

@@ -11,16 +11,7 @@ namespace ToDo.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        [HttpGet]
-        public object NewTask([FromForm]Users userData)
-        {
-            if (!string.IsNullOrEmpty(userData.TodoText))
-            {
-                return DBHelper.AddNewTask(userData.UserName, userData.TodoText);
-                
-            } return -1;
 
-        }
 
         [HttpPost]
         public object Login([FromForm] Users usersData) => string.IsNullOrEmpty(usersData.UserName) || string.IsNullOrEmpty(usersData.Pass)

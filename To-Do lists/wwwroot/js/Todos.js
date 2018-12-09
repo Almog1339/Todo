@@ -1,15 +1,16 @@
 /// <reference path="jquery-3.3.1.js" />
 
-var url = "api/Login";
+
 var tasks = [];
-var userData = {
-    UserName: $('#username').val(),
-    Pass: $('#password').val(),
-    TodoText: $('#todoText').val()
-};
+
 
 
 $("#loginsub").click(function () {
+    var userData = {
+        UserName: $('#username').val(),
+        Pass: $('#password').val()
+    };
+    var url = "api/Login";
     $.post(url, userData).done(
         $('#login').fadeOut(),
         function (data) {
@@ -28,7 +29,11 @@ $("#loginsub").click(function () {
 
 $("input[type ='text']").keypress(function (event) {
     if (event.which === 13) {
-        $.get(url, userData).done(
+        var userData = {
+            UserName: $('#username').val(),
+            TodoText: $('#todoText').val()
+        };
+        $.post("api/Tickets", userData).done(
             console.log(userData.TodoText),
             function (data) {
                 if (data === -1) {
