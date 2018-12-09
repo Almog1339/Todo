@@ -85,14 +85,23 @@ namespace ToDo
                     cmd.Parameters.AddWithValue("@UserName", UserName);
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        if (dr.Read())
-                        {
-                            return dr.GetInt32(0);
-                        }
-
-                        return -1;
+                        return dr.Read() ? dr.GetInt32(0) : -1;
                     }
 
+                }
+            }
+        }
+
+        public static bool DeleteTasks(string TodoText)
+        {
+            using (SqlConnection conn = new SqlConnection()) 
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("delete from tasks where title = @title", conn))
+                {
+                    cmd.Parameters.AddWithValue("@title", TodoText);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                        return dr.Read();
                 }
             }
         }

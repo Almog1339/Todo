@@ -16,5 +16,16 @@ namespace ToDo.Controllers
         {
             return !string.IsNullOrEmpty(userData.TodoText) ? DBHelper.AddNewTask(userData.UserName, userData.TodoText) : (object)-1;
         }
+
+        [HttpDelete]
+        public object DeleteTask([FromForm]Users userData)
+        {
+            if (string.IsNullOrEmpty(userData.TodoText))
+            {
+                return -1;
+            }
+
+            return DBHelper.DeleteTasks(userData.TodoText);
+        }
     }
 }

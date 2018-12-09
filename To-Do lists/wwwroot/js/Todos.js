@@ -10,8 +10,7 @@ $("#loginsub").click(function () {
         UserName: $('#username').val(),
         Pass: $('#password').val()
     };
-    var url = "api/Login";
-    $.post(url, userData).done(
+    $.post("api/Login", userData).done(
         $('#login').fadeOut(),
         function (data) {
             if (data === -1) {
@@ -34,17 +33,36 @@ $("input[type ='text']").keypress(function (event) {
             TodoText: $('#todoText').val()
         };
         $.post("api/Tickets", userData).done(
-            console.log(userData.TodoText),
             function (data) {
                 if (data === -1) {
                     alert("We could not added new todo to the list cause something went wrong please try again later...");
                 } else {
                     $("ul").append("<li><span><i class='far fa-trash-alt'></i></span>" + userData.TodoText + "</li>");
-                    console.log(data);
                 }
             });
     }
 });
+
+$(".fa-trash-alt").click(function () {
+    var userData = {
+        UserName: $('#username').val(),
+        TodoText: $('#todoText').val()
+    };
+    console.log(userData.TodoText);
+    $.ajax({
+        method: "Delete",
+        url: "api/Tickets",
+        data: userData
+    }).done(
+        function(Response) {
+            if (Response === -1 || Response === false) {
+                alert("please try again later...");
+            } else {
+                consle.log("Done");
+            }
+        });
+});
+
 
 $("ul").on("click", "li", function () {
     $(this).toggleClass("completed");
