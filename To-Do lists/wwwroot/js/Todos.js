@@ -1,47 +1,45 @@
 /// <reference path="jquery-3.3.1.js" />
 
 var url = "api/Login";
+var tasks = [];
+var userData = {
+    UserName: $('#username').val(),
+    Pass: $('#password').val(),
+    TodoText: $('#todoText').val()
+};
 
 
 $("#loginsub").click(function () {
-
-    var usersData = {
-        UserName: $('#username').val(),
-        Pass: $('#password').val()
-    };
-    $.post(url, usersData).done(
+    $.post(url, userData).done(
         $('#login').fadeOut(),
         function (data) {
             if (data === -1) {
                 $('#Signup').show();
             } else {
                 $('#Signup').fadeOut();
-                $('#nav').append(" " + usersData.UserName);
+                $('#nav').append(" " + userData.UserName);
                 $('#container').show(500);
-                console.log(data);
-                $('#tasks').append("<li><span><i class='far fa-trash-alt'></i></span>" + data + "</li>");
+                for (var i = 0; i < data.length; i++) {
+                    $('#tasks').append("<li><span><i class='far fa-trash-alt'></i></span>" + data[i].content + "</li>");
+                }
             }
         });
 });
 
-//$("#submitbtn").click(function () {
-
-
-//    var userData = {
-//        UserName: $('#UserName').val(),
-//        Pass: $('#signPass').val(),
-//        Fname: $('#Fname').val(),
-//        Lname: $('#Lname').val(),
-//        Gender: $('#Gender').val(),
-//        Date_of_birth: $('#birthDate').val()
-//    };
-
-//    $.put(url, userData).done(
-//        console.log("done"));
-
-
-//});
-
+$("input[type ='text']").keypress(function (event) {
+    if (event.which === 13) {
+        $.get(url, userData).done(
+            console.log(userData.TodoText),
+            function (data) {
+                if (data === -1) {
+                    alert("We could not added new todo to the list cause something went wrong please try again later...");
+                } else {
+                    $("ul").append("<li><span><i class='far fa-trash-alt'></i></span>" + userData.TodoText + "</li>");
+                    console.log(data);
+                }
+            });
+    }
+});
 
 $("ul").on("click", "li", function () {
     $(this).toggleClass("completed");
@@ -53,13 +51,7 @@ $("ul").on("click", "span", function (event) {
     });
     event.stopPropagation();
 });
-$("input[type ='text']").keypress(function (event) {
-    if (event.which === 13) {
-        var todoText = $(this).val();
-        $(this).val("");
-        $("ul").append("<li><span><i class='far fa-trash-alt'></i></span>" + todoText + "</li>");
-    }
-});
+
 $(".fa-pen-fancy").click(function () {
     $("input[type ='text']").fadeToggle();
 });
