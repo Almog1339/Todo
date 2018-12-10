@@ -33,10 +33,6 @@ namespace ToDo
             }
         }
 
-        internal static bool Register(string userName, string pass, string fName, string lName, char gender, DateTime date_of_birth)
-        {
-            throw new NotImplementedException();
-        }
 
         public static List<ListAndTasks> Ticket(string UserName)
         {
@@ -94,7 +90,7 @@ namespace ToDo
 
         public static bool DeleteTasks(string TodoText)
         {
-            using (SqlConnection conn = new SqlConnection()) 
+            using (SqlConnection conn = new SqlConnection(CONN_STRING)) 
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand("delete from tasks where title = @title", conn))
@@ -104,6 +100,11 @@ namespace ToDo
                         return dr.Read();
                 }
             }
+        }
+
+        public static bool Register(string userDataUserName, string userDataPass, string userDataFName, string userDataLName, char userDataGender, DateTime userDataDateOfBirth)
+        {
+            throw new NotImplementedException();
         }
     }
 }
