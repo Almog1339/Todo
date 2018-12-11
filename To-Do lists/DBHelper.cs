@@ -88,13 +88,14 @@ namespace ToDo
             }
         }
 
-        public static bool DeleteTasks(string TodoText)
+        public static bool DeleteTasks(string UserName, string TodoText)
         {
             using (SqlConnection conn = new SqlConnection(CONN_STRING)) 
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("delete from tasks where title = @title", conn))
+                using (SqlCommand cmd = new SqlCommand("delete from Tasks where Tasks.title = @title and Tasks.user_id = @user_id", conn))
                 {
+                    cmd.Parameters.AddWithValue("@user_id", GetUserId(UserName));
                     cmd.Parameters.AddWithValue("@title", TodoText);
                     using (SqlDataReader dr = cmd.ExecuteReader())
                         return dr.Read();

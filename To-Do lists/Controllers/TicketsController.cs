@@ -20,12 +20,11 @@ namespace ToDo.Controllers
         [HttpDelete]
         public object DeleteTask([FromForm]Users userData)
         {
-            if (string.IsNullOrEmpty(userData.TodoText))
+            if (string.IsNullOrEmpty(userData.UserName)|| string.IsNullOrEmpty(userData.TodoText))
             {
                 return -1;
             }
-
-            return DBHelper.DeleteTasks(userData.TodoText);
+            return DBHelper.DeleteTasks(userData.UserName, userData.TodoText);
         }
     }
 }

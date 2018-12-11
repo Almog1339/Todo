@@ -16,7 +16,8 @@ $("#loginsub").click(function () {
                 $('#nav').append(" " + userData.UserName);
                 $('#container').show(500);
                 for (var i = 0; i < data.length; i++) {
-                    $('#tasks').append("<li id='TodoTextContent'><span><i class='far fa-trash-alt'></i></span>" + data[i].content + "</li>");
+                    $('#tasks').append("<li id='TodoTextContent'><span id="+i+"><i class='far fa-trash-alt'></i></span>" + data[i].content + "</li>");
+                    tasks[i] = data[i];
                 }
             }
         });
@@ -32,10 +33,10 @@ $("input[type ='text']").keypress(function (event) {
             function (data) {
                 if (data === -1) {
                     alert("We could not added new todo to the list cause something went wrong please try again later...");
-                    $("#todoText").empty();
+                    $("input[type = 'text']").empty();
                 } else {
                     $("#tasks").append("<li id='TodoTextContent'><span><i class='far fa-trash-alt'></i></span>" + userData.TodoText + "</li>");
-                    $("#todoText").empty();
+                    $("input[type = 'text']").empty();
                 }
             });
     }
@@ -46,28 +47,26 @@ $("ul").on("click", "li", function () {
     $(this).toggleClass("completed");
 });
 
-$("ul").on("click", "span", function (event) {
-    $(this).parent().fadeOut(500, function () {
+$("ul").on("click", "span", function () {
+    $(this).parent().fadeOut(1500, function () {
         $(this).remove();
     });
-    console.log($('#TodoTextContent').valueOf());
-    //var userData = {
-    //    UserName: $('#username').val(),
-    //    TodoText: $('data[i].content').val()
-    //};
-
-    //$.ajax({
-    //    method: "Delete",
-    //    url: "api/Tickets",
-    //    data: userData
-    //}).done(
-    //    function (data) {
-    //        if (data === -1 || data === false) {
-    //            alert("please try again later...");
-    //        } else {
-    //            consle.log("Done");
-    //        }
-    //    });
+    
+    var userData = {
+        UserName: $('#username').val(),
+        TodoTextId: $('this.id').val(),
+        TodoText: tasks[this.id].content
+    };
+    $.ajax({
+        method: "DELETE",
+        url: "api/Tickets",
+        data: userData
+    }).done(
+        function (data) {
+            if (data === -1) {
+                alert("We have run with some issue please try again later...");
+            }
+        });
     event.stopPropagation();
 });
 
