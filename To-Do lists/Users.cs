@@ -16,8 +16,6 @@ namespace ToDo
         public string Pass { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
-        public char Gender { get; set; }
-        public DateTime Date_of_birth { get; set; }
         public int TodoTextId { get; set; }
     }
 }

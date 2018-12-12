@@ -33,7 +33,6 @@ namespace ToDo
             }
         }
 
-
         public static List<ListAndTasks> Ticket(string UserName)
         {
             using (SqlConnection conn = new SqlConnection(CONN_STRING))
@@ -103,9 +102,23 @@ namespace ToDo
             }
         }
 
-        public static bool Register(string userDataUserName, string userDataPass, string userDataFName, string userDataLName, char userDataGender, DateTime userDataDateOfBirth)
+        public static bool Register(string UserName, string Pass, string FName, string LName)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(CONN_STRING)) 
+            {
+                conn.Open();
+                StringBuilder sb = new StringBuilder();
+                sb.Append("insert into Users (UserName,Pass,FirstName,LastName) values (@UserName,@Pass,@FName,@LName)");
+                using (SqlCommand cmd = new SqlCommand(sb.ToString(),conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserName", UserName);
+                    cmd.Parameters.AddWithValue("@Pass", Pass);
+                    cmd.Parameters.AddWithValue("@FName", FName);
+                    cmd.Parameters.AddWithValue("@LName", LName);
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                        return dr.Read();
+                }
+            }
         }
     }
 }

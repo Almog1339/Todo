@@ -16,7 +16,7 @@ $("#loginsub").click(function () {
                 $('#nav').append(" " + userData.UserName);
                 $('#container').show(500);
                 for (var i = 0; i < data.length; i++) {
-                    $('#tasks').append("<li id='TodoTextContent'><span id="+i+"><i class='far fa-trash-alt'></i></span>" + data[i].content + "</li>");
+                    $('#tasks').append("<li id='TodoTextContent'><span id=" + i + "><i class='far fa-trash-alt'></i></span>" + data[i].content + "</li>");
                     tasks[i] = data[i];
                 }
             }
@@ -42,6 +42,26 @@ $("input[type ='text']").keypress(function (event) {
     }
 });
 
+$("#submitbtn").click(function () {
+
+    var userData = {
+        UserName: $('#RegUserName').val(),
+        Pass: $('#signPass').val(),
+        FName: $("#Fname").val(),
+        LName: $("#Lname").val()
+    };
+
+    $.post("api/Registration", userData).done(
+        function (data) {
+            if (data === -1) {
+                alert("Hi " +
+                    userData.UserName +
+                    " Unfortunately we have run some issues....Please try again later..");
+            } else {
+                alert("Success Please try to login now");
+            }
+        });
+});
 
 $("ul").on("click", "li", function () {
     $(this).toggleClass("completed");
@@ -51,7 +71,7 @@ $("ul").on("click", "span", function () {
     $(this).parent().fadeOut(1500, function () {
         $(this).remove();
     });
-    
+
     var userData = {
         UserName: $('#username').val(),
         TodoTextId: $('this.id').val(),
@@ -75,6 +95,6 @@ $(".fa-pen-fancy").click(function () {
 });
 
 $("button[type='button']").click(function () {
-    $("#Signup").fadeToggle();
-    $("#login").fadeToggle();
-});
+    $("#Signup").fadeToggle(1500);
+    $("#login").fadeToggle(1400);
+}); 

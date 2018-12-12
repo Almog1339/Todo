@@ -18,21 +18,12 @@
 
     </div>
     <div id="Signup" style="display: none">
-        <form id="Register">
-            <input type="text" id="UserName" name="username" placeholder="UserName" />
-            <input type="password" id="signPass" name="pass" placeholder="password" /> <input type="password" id="confirmpassword" name="confirmpass" placeholder="Confirm your password" />
+            <input type="text" id="RegUserName" name="username" placeholder="UserName" />
+            <input type="password" id="signPass" name="pass" placeholder="password" /> 
             <input type="text" id="Fname" name="Fname" placeholder="First Name" />
             <input type="text" id="Lname" name="Lname" placeholder="Last Name" />
-            <select id="Gender">
-                <option>Please select your gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Dont want to share this information</option>
-            </select>
-            <input type="date" id='birthDate' name="birthDate" />
             <button type="submit" id="submitbtn">Submit</button>
             <button type="button">Login</button>
-        </form>
     </div>
     <div id='container' style="display:none">
         <div id="nav">Welcome:</div>
@@ -53,17 +44,11 @@
                         minlength: 5
                     }, pass: {
                         required: true,
-                        minlength: 5
-                    }, confirmpass: {
-                        required: true,
-                        equalTo: "pass"
+                        minlength: 4
                     }, Fname: {
                         required: true,
-                        minlength: 5
+                        minlength: 2
                     }, Lname: {
-                        required: true,
-                        minlength: 5
-                    }, birthDate: {
                         required: true
                     }
                 }
