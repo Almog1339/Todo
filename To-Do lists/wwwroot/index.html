@@ -4,57 +4,137 @@
     <title>
         Todo List
     </title>
-    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/Todos.css">
+    <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <script src="js/jquery-3.3.1.js"></script>
 </head>
 <body>
-    <div id="login" style="display: block">
-        <input type="text" name="username" id="username" placeholder="Username" />
-        <input type="password" name="password" id="password" placeholder="Password" />
-        <button type="submit" id="loginsub">Login</button>
-        <button type="button">Register</button>
 
+    <div id="login" class="hero-body">
+        <div class="container has-text-centered">
+            <div class="columns is-vcentered">
+                <div class="column is-6 is-offset-3">
+                    <div id="login-card" class="animated preFadeInLeft fadeInLeft">
+                        <div class="flex-card wavy-login-card">
+                            <h2 class="text-bold dark-text no-margin-bottom pt-20 pb-20">Log in</h2>
+                            <form class="pt-10 pb-10">
+                                <div class="control-material is-primary">
+                                    <input id="username" class="material-input" type="text" required>
+                                    <div class="material-highlight"></div>
+                                    <div class="bar"></div>
+                                    <label>Username</label>
+                                </div>
+                                <div class="control-material is-primary">
+                                    <input id="password" class="material-input" type="password" required>
+                                    <div class="material-highlight"></div>
+                                    <div class="bar"></div>
+                                    <label>Password</label>
+                                </div>
+                                <div class="pt-20 pb-20">
+                                    <input type="button" id="BtnLogin" class="button button-cta btn-align primary-btn is-fullwidth rounded raised no-lh" value="Login"></input>
+                                </div>
+                                <div class="pt-20 pb-20">
+                                    <button type="button" class="button button-cta btn-align primary-btn is-fullwidth rounded raised no-lh">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div id="Signup" style="display: none">
-            <input type="text" id="RegUserName" name="username" placeholder="UserName" />
-            <input type="password" id="signPass" name="pass" placeholder="password" /> 
-            <input type="text" id="Fname" name="Fname" placeholder="First Name" />
-            <input type="text" id="Lname" name="Lname" placeholder="Last Name" />
-            <button type="submit" id="submitbtn">Submit</button>
-            <button type="button">Login</button>
-    </div>
-    <div id='container' style="display:none">
-        <div id="nav">Welcome:</div>
-        <h1>To-Do List<i class="fas fa-pen-fancy"></i></h1>
-        <input type="text" placeholder="Add new ToDo" id="todoText">
-        <ul id="tasks">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column is-6 is-offset-3 z-index-2">
+                        <div id="login-card" class="animated preFadeInLeft fadeInLeft">
+                            <div class="flex-card wavy-login-card">
+                                <h2 class="text-bold dark-text no-margin-bottom pt-20 pb-20">Register</h2>
+                                <form id="Register" class="pt-10 pb-10">
+                                    <div class="control-material is-primary">
+                                        <input name="username" id="RegUserName" class="material-input" type="text" required>
+                                        <div class="material-highlight"></div>
+                                        <div class="bar"></div>
+                                        <label>Username</label>
+                                    </div>
+                                    <div class="control-material is-primary">
+                                        <input name="pass" id="signPass" class="material-input" type="password" required>
+                                        <div class="material-highlight"></div>
+                                        <div class="bar"></div>
+                                        <label>Password</label>
+                                    </div>
 
-        </ul>
+                                    <div class="control-material is-primary">
+                                        <input id="Fname" name="Fname" class="material-input" type="text" required>
+                                        <div class="material-highlight"></div>
+                                        <div class="bar"></div>
+                                        <label>Firs name</label>
+                                    </div>
+                                    <div class="control-material is-primary">
+                                        <input id="Lname" name="Lanme" class="material-input" type="text" required>
+                                        <div class="material-highlight"></div>
+                                        <div class="bar"></div>
+                                        <label>Last name</label>
+                                    </div>
+                                    <div class="pt-20 pb-20">
+                                        <input type="button" id="submitbtn" class="button button-cta btn-align primary-btn is-fullwidth rounded raised no-lh" value="Submit"></input>
+                                    </div>
+                                    <div class="pt-20 pb-20">
+                                        <button type="button" class="button button-cta btn-align primary-btn is-fullwidth rounded raised no-lh">Log in</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div id="containerToDo" style="display: none;">
+        <section class="hero is-light">
+            <a class="navbar-item">
+                <img src="css/NewFolder/unnamed.png" alt="Logo">
+            </a>
+            <div class="hero-body">
+
+                <div class="container">
+
+                    <h1 class="title">
+                        To Do List
+                    </h1>
+                    <h2 id="subtitle" class="subtitle">
+                        Welcome:
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <div style="font-size: 3em;">
+                <i class="fas fa-plus"></i>
+                </div>
+                    <input class="input" type="text" placeholder="Add new ToDo" id="todoText" style="font-size: 1.3em;">
+                    <ul id="tasks"></ul>
+            </div>
+        </section>
+        <footer class="footer" style="position: fixed;bottom: 0;width: 100%;">
+            <div class="content has-text-centered">
+                <nav class="level">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Your Total To Do's</p>
+                            <p id="numofToDo" class="title"></p>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
     <script src="js/Todos.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#Register").validate({
-                rules: {
-                    username: {
-                        required: true,
-                        minlength: 5
-                    }, pass: {
-                        required: true,
-                        minlength: 4
-                    }, Fname: {
-                        required: true,
-                        minlength: 2
-                    }, Lname: {
-                        required: true
-                    }
-                }
-            });
-        });
-
-    </script>
 </body>
 </html>

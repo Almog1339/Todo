@@ -1,24 +1,37 @@
 /// <reference path="jquery-3.3.1.js" />
+
 var tasks = [];
 
-$("#loginsub").click(function () {
+$("#BtnLogin").on("click", function () {
+
     var userData = {
         UserName: $('#username').val(),
         Pass: $('#password').val()
     };
     $.post("api/Login", userData).done(
-        $('#login').fadeOut(),
         function (data) {
             if (data === -1) {
-                $('#Signup').show();
+                    $("#Signup").animate({
+                    height: 'toggle'
+                    }),
+                    $("#login").animate({
+                    height: 'toggle'
+                    });
             } else {
-                $('#Signup').fadeOut();
-                $('#nav').append(" " + userData.UserName);
-                $('#container').show(500);
+                $("#Signup").fadeOut();
+                    $("#login").animate({
+                        height: 'toggle'
+                    });
+                $('#containerToDo').animate({
+                    height: 'toggle'
+                });
+                $('#subtitle').append(" " + userData.UserName);
                 for (var i = 0; i < data.length; i++) {
-                    $('#tasks').append("<li id='TodoTextContent'><span id=" + i + "><i class='far fa-trash-alt'></i></span>" + data[i].content + "</li>");
+                    $('#tasks').append("<li id='TodoTextContent' class='TodoTextContent'><span id=" + i +"><i class='fas fa-times'></i></span>" + data[i].content +"</li>");
                     tasks[i] = data[i];
                 }
+                $('#numofToDo').empty();
+                $('#numofToDo').append(tasks.length);
             }
         });
 });
@@ -35,14 +48,16 @@ $("input[type ='text']").keypress(function (event) {
                     alert("We could not added new todo to the list cause something went wrong please try again later...");
                     $("input[type = 'text']").empty();
                 } else {
-                    $("#tasks").append("<li id='TodoTextContent'><span><i class='far fa-trash-alt'></i></span>" + userData.TodoText + "</li>");
+                    $("#tasks").append("<li id='TodoTextContent' class='TodoTextContent'><span id="+tasks.last+"><i class='fas fa-times'></i></span>" + userData.TodoText + "</li>");
                     $("input[type = 'text']").empty();
                 }
+                $('#numofToDo').empty();
+                $('#numofToDo').append(tasks.length +1);
             });
     }
 });
 
-$("#submitbtn").click(function () {
+$("#submitbtn").on("click",function (event) {
 
     var userData = {
         UserName: $('#RegUserName').val(),
@@ -58,9 +73,14 @@ $("#submitbtn").click(function () {
                     userData.UserName +
                     " Unfortunately we have run some issues....Please try again later..");
             } else {
-                alert("Success Please try to login now");
+                alert("Success...Please try to login now..");
+                $("#login").animate({
+                    height: 'toggle'
+                });
             }
         });
+    event.stopPropagation();
+
 });
 
 $("ul").on("click", "li", function () {
@@ -86,15 +106,23 @@ $("ul").on("click", "span", function () {
             if (data === -1) {
                 alert("We have run with some issue please try again later...");
             }
+            $('#numofToDo').empty();
+            $('#numofToDo').append(tasks.length - 1);
         });
     event.stopPropagation();
 });
 
-$(".fa-pen-fancy").click(function () {
-    $("input[type ='text']").fadeToggle();
+$(".fa-plus").click(function () {
+    $("input[type ='text']").animate({
+        height: 'toggle'
+    });
 });
 
 $("button[type='button']").click(function () {
-    $("#Signup").fadeToggle(1500);
-    $("#login").fadeToggle(1400);
+        $("#Signup").animate({
+            height: 'toggle'
+        }),
+        $("#login").animate({
+            height: 'toggle'
+        });
 }); 

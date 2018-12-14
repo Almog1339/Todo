@@ -13,7 +13,7 @@ namespace ToDo.Controllers
     {
         [HttpPost]
         public object Login([FromForm] Users usersData) => string.IsNullOrEmpty(usersData.UserName) || string.IsNullOrEmpty(usersData.Pass)
-                ? -1
-                : DBHelper.ValidateUser(usersData.UserName, usersData.Pass);
+            ? -1
+            : DBHelper.ValidateUser(usersData.UserName, usersData.Pass);
     }
 }
